@@ -35,7 +35,7 @@ public class User {
     @Column(nullable = false)
     private boolean active = true;
 
-    @ManyToMany(fetch = FetchType.EAGER)
+    @ManyToMany(fetch = FetchType.EAGER) //Related data is available at the time of fetching the Parent entity
     @JoinTable(
             name = "user_roles",
             joinColumns = @JoinColumn(name = "user_id"),
@@ -44,10 +44,10 @@ public class User {
 
     private Set<Role> roles = new HashSet<>();
 
-    @CreationTimestamp
+    @CreationTimestamp  //This annotation used to automatically track the exact date and time is created. It stored in Database Table
     @Column(updatable = false)
     private LocalDateTime createdAt;
 
-    @UpdateTimestamp
+    @UpdateTimestamp  //This annotation used to automatically track the exact date and time is modified or updated. It also stores in Database table.
     private LocalDateTime updatedAt;
 }
