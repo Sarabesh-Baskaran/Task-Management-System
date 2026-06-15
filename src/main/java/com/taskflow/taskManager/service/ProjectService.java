@@ -6,6 +6,7 @@ import com.taskflow.taskManager.dto.response.UserResponse;
 import com.taskflow.taskManager.entity.Project;
 import com.taskflow.taskManager.entity.User;
 import com.taskflow.taskManager.exception.ResourceNotFoundException;
+import com.taskflow.taskManager.exception.UnauthorizedException;
 import com.taskflow.taskManager.repository.ProjectRepository;
 import com.taskflow.taskManager.repository.TaskRepository;
 import com.taskflow.taskManager.repository.UserRepository;
@@ -110,7 +111,7 @@ public class ProjectService {
                 .getId().equals(currentUser.getId());
 
         if (!isAdmin && !isCreator) {
-            throw new IllegalArgumentException(
+            throw new UnauthorizedException(
                     "Only project creator or ADMIN can update this project!"
             );
         }

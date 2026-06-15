@@ -8,6 +8,7 @@ import com.taskflow.taskManager.entity.Project;
 import com.taskflow.taskManager.entity.Task;
 import com.taskflow.taskManager.entity.User;
 import com.taskflow.taskManager.exception.ResourceNotFoundException;
+import com.taskflow.taskManager.exception.UnauthorizedException;
 import com.taskflow.taskManager.repository.ProjectRepository;
 import com.taskflow.taskManager.repository.TaskRepository;
 import com.taskflow.taskManager.repository.UserRepository;
@@ -189,7 +190,7 @@ public class TaskService {
                 .equals(currentUser.getId());
 
         if (!isAdminOrManager && !isCreator) {
-            throw new IllegalArgumentException(
+            throw new UnauthorizedException(
                     "Only task creator, ADMIN, or MANAGER can delete this task!"
             );
         }
@@ -240,7 +241,7 @@ public class TaskService {
                 .anyMatch(m -> m.getId().equals(user.getId()));
 
         if (!isMember) {
-            throw new IllegalArgumentException(
+            throw new UnauthorizedException(
                     "User must be a project member to perform this action!"
             );
         }

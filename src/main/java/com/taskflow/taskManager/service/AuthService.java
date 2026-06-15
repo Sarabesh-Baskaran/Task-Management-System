@@ -6,6 +6,7 @@ import com.taskflow.taskManager.dto.response.AuthResponse;
 import com.taskflow.taskManager.dto.response.UserResponse;
 import com.taskflow.taskManager.entity.Role;
 import com.taskflow.taskManager.entity.User;
+import com.taskflow.taskManager.exception.DuplicateResourceException;
 import com.taskflow.taskManager.exception.ResourceNotFoundException;
 import com.taskflow.taskManager.repository.RoleRepository;
 import com.taskflow.taskManager.repository.UserRepository;
@@ -41,7 +42,7 @@ public class AuthService {
 
         //1.Check email already exist
         if(userRepository.existsByEmail(request.getEmail())){
-            throw new IllegalArgumentException("Email already registered: " + request.getEmail());
+            throw new DuplicateResourceException("Email already registered: " + request.getEmail());
         }
 
         //2.Default role = DEVELOPER
